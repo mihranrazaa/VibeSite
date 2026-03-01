@@ -1,0 +1,30 @@
+---
+// This reads the __COMMIT_HASH__ and __COMMIT_DATE__ from Vite's injected global definitions
+const hash = typeof __COMMIT_HASH__ !== "undefined" ? __COMMIT_HASH__ : "unknown";
+const rawDate = typeof __COMMIT_DATE__ !== "undefined" ? __COMMIT_DATE__ : new Date().toISOString();
+
+const formattedDate = new Date(rawDate).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+});
+
+// Assuming the user's Github repo is mihranrazaa/vibesite. If not, the link will 404 but the text will look exactly like qcoral's.
+const REPO_URL = "https://github.com/mihranrazaa/vibesite";
+---
+
+<div class="text-muted-foreground text-xs mt-2 mb-8 text-center flex items-center justify-center gap-1.5 font-mono opacity-60 hover:opacity-100 transition-opacity">
+    <span>Commit</span>
+    <a
+        class="text-cyan-400 font-semibold hover:text-cyan-300 transition-colors"
+        href={`${REPO_URL}/commit/${hash}`}
+        target="_blank"
+        rel="noopener noreferrer"
+    >
+        {hash}
+    </a>
+    <span class="text-cyan-400 font-bold">!</span>
+    <span>last updated: {formattedDate} UTC</span>
+</div>

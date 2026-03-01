@@ -1,0 +1,23 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SearchBar from "../components/SearchBar.tsx";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const searchPosts = allPosts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .map((post) => ({
+    slug: post.id.replace(/\.md$/, ""),
+    title: post.data.title,
+    description: post.data.description,
+    date: post.data.date.toISOString(),
+    tags: post.data.tags,
+  }));
+---
+
+<BaseLayout title="search — mihranrazaa">
+  <section class="py-10">
+    <h1 class="text-lg font-semibold tracking-tight mb-6">search</h1>
+    <SearchBar posts={searchPosts} client:load />
+  </section>
+</BaseLayout>

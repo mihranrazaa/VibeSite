@@ -1,0 +1,25 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+
+const allPosts = await getCollection("blog", ({ data }) => !data.draft);
+const allTags = [...new Set(allPosts.flatMap((post) => post.data.tags))].sort();
+const tagCounts = allTags.map((tag) => ({
+  tag,
+  count: allPosts.filter((post) => post.data.tags.includes(tag)).length,
+}));
+---
+
+<BaseLayout title="tags — mihranrazaa">
+  <section class="py-10">
+    <h1 class="text-lg font-semibold tracking-tight mb-6">tags</h1>
+    <div class="space-y-2">
+      {tagCounts.map(({ tag, count }) => (
+        <a href={`/tags/${tag}`} class="flex items-baseline justify-between group text-sm">
+          <span class="text-foreground group-hover:text-accent transition-colors">#{tag}</span>
+          <span class="text-xs text-muted-foreground">{count}</span>
+        </a>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
