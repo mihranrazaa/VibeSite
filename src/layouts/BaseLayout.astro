@@ -222,9 +222,12 @@ const {
           canvas.width = W;
           canvas.height = H;
 
-          const COUNT = Math.min(55, Math.max(28, Math.floor((W * H) / 14000)));
-          const REPEL_RADIUS = 120;
-          const REPEL_FORCE = 2.5;
+          const isMobile = W < 768;
+          const COUNT = isMobile
+            ? Math.min(15, Math.max(8, Math.floor((W * H) / 30000)))
+            : Math.min(55, Math.max(28, Math.floor((W * H) / 14000)));
+          const REPEL_RADIUS = isMobile ? 80 : 120;
+          const REPEL_FORCE = isMobile ? 1.5 : 2.5;
 
           interface FloatingIcon {
             x: number; y: number;
@@ -259,7 +262,9 @@ const {
               
               // Scale image down specifically for Twemoji SVGs (which are 36x36 natively), or PNGs
               // We want them to look around 24px-36px big, so scale is around 0.5 to 1.2
-              const scale = Math.random() * 0.7 + 0.5;
+              const scale = isMobile
+                ? Math.random() * 0.4 + 0.3   // 0.3–0.7 on mobile (smaller)
+                : Math.random() * 0.7 + 0.5;  // 0.5–1.2 on desktop
 
               items.push({
                 x: Math.random() * W,
@@ -272,7 +277,9 @@ const {
                 rotation: Math.random() * Math.PI * 2,
                 rotSpeed: (Math.random() - 0.5) * 0.03,
                 imgIdx: Math.floor(Math.random() * loadedImages.length),
-                opacity: Math.random() * 0.25 + 0.15, // 15% to 40% visibility
+                opacity: isMobile
+                  ? Math.random() * 0.12 + 0.06  // 6%–18% on mobile (much subtler)
+                  : Math.random() * 0.25 + 0.15, // 15%–40% on desktop
               });
             }
           }
@@ -340,11 +347,23 @@ const {
           draw();
 
           window.addEventListener("resize", () => {
-            W = window.innerWidth;
-            H = window.innerHeight;
+            const newW = window.innerWidth;
+            const newH = window.innerHeight;
+
+            // On mobile, the browser chrome (address bar, home bar) causes
+            // height-only changes. Ignore those to prevent emojis from jumping.
+            if (isMobile && newW === W) {
+              // Only update canvas height so it doesn't clip, but don't respawn
+              H = newH;
+              canvas.height = H;
+              return;
+            }
+
+            W = newW;
+            H = newH;
             canvas.width = W;
             canvas.height = H;
-            spawn(); // Respawn to redistribute evenly
+            spawn(); // Only respawn on actual layout changes (orientation, desktop resize)
           });
         }
       }
