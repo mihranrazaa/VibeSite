@@ -257,29 +257,37 @@ const {
           function spawn() {
             items.length = 0;
             for (let i = 0; i < COUNT; i++) {
-              const baseVx = (Math.random() - 0.5) * 1.5;
-              const baseVy = (Math.random() - 0.5) * 1.5;
+              let baseVx, baseVy;
+
+              if (isMobile) {
+                // Rain effect: slow downward drift + gentle random horizontal sway
+                baseVx = (Math.random() - 0.5) * 0.6;  // subtle left-right wobble
+                baseVy = Math.random() * 0.4 + 0.3;     // always drifting down (0.3–0.7)
+              } else {
+                baseVx = (Math.random() - 0.5) * 1.5;
+                baseVy = (Math.random() - 0.5) * 1.5;
+              }
               
-              // Scale image down specifically for Twemoji SVGs (which are 36x36 natively), or PNGs
-              // We want them to look around 24px-36px big, so scale is around 0.5 to 1.2
               const scale = isMobile
-                ? Math.random() * 0.4 + 0.3   // 0.3–0.7 on mobile (smaller)
-                : Math.random() * 0.7 + 0.5;  // 0.5–1.2 on desktop
+                ? Math.random() * 0.4 + 0.3
+                : Math.random() * 0.7 + 0.5;
 
               items.push({
                 x: Math.random() * W,
-                y: Math.random() * H,
+                y: isMobile
+                  ? -Math.random() * H        // stagger above the viewport for rain entry
+                  : Math.random() * H,
                 vx: baseVx,
                 vy: baseVy,
                 baseVx: baseVx,
                 baseVy: baseVy,
                 scale: scale,
                 rotation: Math.random() * Math.PI * 2,
-                rotSpeed: (Math.random() - 0.5) * 0.03,
+                rotSpeed: (Math.random() - 0.5) * 0.02,
                 imgIdx: Math.floor(Math.random() * loadedImages.length),
                 opacity: isMobile
-                  ? Math.random() * 0.08 + 0.03  // 3%–11% on mobile (very subtle)
-                  : Math.random() * 0.25 + 0.15, // 15%–40% on desktop
+                  ? Math.random() * 0.08 + 0.03
+                  : Math.random() * 0.25 + 0.15,
               });
             }
           }
@@ -294,8 +302,24 @@ const {
               item.y += item.vy;
               item.rotation += item.rotSpeed;
 
-              // Mouse repulsion (desktop only)
-              if (!isMobile) {
+              if (isMobile) {
+                // Mobile rain: add gentle random horizontal sway over time
+                item.vx += (Math.random() - 0.5) * 0.02;
+                // Clamp horizontal drift so they don't fly sideways
+                item.vx = Math.max(-0.8, Math.min(0.8, item.vx));
+                // Keep downward speed steady
+                item.vy = item.vy * 0.99 + item.baseVy * 0.01;
+
+                // Wrap: when emoji falls off the bottom, respawn at the top
+                if (item.y > H + 60) {
+                  item.y = -60;
+                  item.x = Math.random() * W;
+                }
+                // Wrap horizontally too
+                if (item.x < -60) item.x = W + 60;
+                if (item.x > W + 60) item.x = -60;
+              } else {
+                // Desktop: mouse repulsion
                 const dx = item.x - mouseX;
                 const dy = item.y - mouseY;
                 const dist = Math.sqrt(dx * dx + dy * dy);
@@ -304,26 +328,26 @@ const {
                   item.vx += (dx / dist) * force * 0.08;
                   item.vy += (dy / dist) * force * 0.08;
                 }
+
+                // Content zone repulsion — push out from text column 
+                const contentLeft = (W - 672) / 2 - 40;
+                const contentRight = (W + 672) / 2 + 40;
+                if (item.x > contentLeft && item.x < contentRight) {
+                  const center = W / 2;
+                  const pushDir = item.x < center ? -1 : 1;
+                  item.vx += pushDir * 0.15;
+                }
+
+                // Damping — slowly return to natural base speed
+                item.vx = item.vx * 0.98 + item.baseVx * 0.02;
+                item.vy = item.vy * 0.98 + item.baseVy * 0.02;
+
+                // Wrap seamlessly
+                if (item.x < -100) item.x = W + 100;
+                if (item.x > W + 100) item.x = -100;
+                if (item.y < -100) item.y = H + 100;
+                if (item.y > H + 100) item.y = -100;
               }
-
-              // Content zone repulsion — push out from text column 
-              const contentLeft = (W - 672) / 2 - 40;
-              const contentRight = (W + 672) / 2 + 40;
-              if (item.x > contentLeft && item.x < contentRight) {
-                const center = W / 2;
-                const pushDir = item.x < center ? -1 : 1;
-                item.vx += pushDir * 0.15;
-              }
-
-              // Damping — slowly return to natural base speed instead of stopping
-              item.vx = item.vx * 0.98 + item.baseVx * 0.02;
-              item.vy = item.vy * 0.98 + item.baseVy * 0.02;
-
-              // Wrap seamlessly
-              if (item.x < -100) item.x = W + 100;
-              if (item.x > W + 100) item.x = -100;
-              if (item.y < -100) item.y = H + 100;
-              if (item.y > H + 100) item.y = -100;
 
               // Draw Image
               ctx.save();
