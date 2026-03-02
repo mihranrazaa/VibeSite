@@ -5,139 +5,210 @@ import SpotifyWidget from "../components/SpotifyWidget";
 ---
 
 <BaseLayout title="Mihran Raza">
-  <section class="py-10">
-    <div class="flex items-center gap-4 mb-4">
-      <h1 class="text-2xl font-semibold tracking-tight">
-        Mihran Raza
-      </h1>
-      <div id="profile-pic" class="relative w-16 h-16 rounded-[1.25rem] overflow-hidden group border border-border/50 cursor-pointer">
-        <img 
-          src="/me.jpeg" 
-          alt="mihranrazaa" 
-          id="profile-default"
-          class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0"
-        />
-        <img 
-          src="/me-hover.jpeg" 
-          alt="mihranrazaa" 
-          id="profile-hover"
-          class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-        />
-      </div>
-    </div>
+    <section class="py-10">
+        <div class="flex items-center gap-4 mb-4">
+            <h1 class="text-2xl font-semibold tracking-tight">Mihran Raza</h1>
+            <div
+                id="profile-pic"
+                class="relative w-16 h-16 rounded-[1.25rem] overflow-hidden group border border-border/50 cursor-pointer"
+            >
+                <img
+                    src="/me.jpeg"
+                    alt="mihranrazaa"
+                    id="profile-default"
+                    class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0"
+                />
+                <img
+                    src="/me-hover.jpeg"
+                    alt="mihranrazaa"
+                    id="profile-hover"
+                    class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                />
+            </div>
+        </div>
 
-    <script>
-      // Mobile touch swap for profile image
-      const profilePic = document.getElementById("profile-pic");
-      const defaultImg = document.getElementById("profile-default") as HTMLImageElement;
-      const hoverImg = document.getElementById("profile-hover") as HTMLImageElement;
-      let isSwapped = false;
+        <script>
+            // Mobile touch swap for profile image
+            const profilePic = document.getElementById("profile-pic");
+            const defaultImg = document.getElementById(
+                "profile-default",
+            ) as HTMLImageElement;
+            const hoverImg = document.getElementById(
+                "profile-hover",
+            ) as HTMLImageElement;
+            let isSwapped = false;
 
-      profilePic?.addEventListener("click", (e) => {
-        e.stopPropagation();
-        isSwapped = !isSwapped;
-        if (defaultImg && hoverImg) {
-          defaultImg.style.opacity = isSwapped ? "0" : "1";
-          hoverImg.style.opacity = isSwapped ? "1" : "0";
-        }
-      });
+            profilePic?.addEventListener("click", (e) => {
+                e.stopPropagation();
+                isSwapped = !isSwapped;
+                if (defaultImg && hoverImg) {
+                    defaultImg.style.opacity = isSwapped ? "0" : "1";
+                    hoverImg.style.opacity = isSwapped ? "1" : "0";
+                }
+            });
 
-      document.addEventListener("click", () => {
-        if (isSwapped && defaultImg && hoverImg) {
-          isSwapped = false;
-          defaultImg.style.opacity = "1";
-          hoverImg.style.opacity = "0";
-        }
-      });
-    </script>
-    <p class="text-sm text-muted-foreground leading-relaxed max-w-lg">
-      Hardware/Software tinkerer.
-    </p>
-    <div class="flex gap-4 mt-5 mb-8 text-xs">
-      <a href="/blog" class="text-accent hover:underline underline-offset-4">blog →</a>
-      <a href="/portfolio" class="text-accent hover:underline underline-offset-4">work →</a>
-    </div>
+            document.addEventListener("click", () => {
+                if (isSwapped && defaultImg && hoverImg) {
+                    isSwapped = false;
+                    defaultImg.style.opacity = "1";
+                    hoverImg.style.opacity = "0";
+                }
+            });
+        </script>
+        <p class="text-sm text-muted-foreground leading-relaxed max-w-lg">
+            Tinkerer / Absurdist / Developer
+        </p>
+        <div class="flex gap-4 mt-5 mb-8 text-xs">
+            <a
+                href="/blog"
+                class="text-accent hover:underline underline-offset-4">blog →</a
+            >
+            <a
+                href="/portfolio"
+                class="text-accent hover:underline underline-offset-4">work →</a
+            >
+        </div>
 
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <WeatherWidget client:load />
-      <SpotifyWidget discordId="1287023567019704394" client:load />
-    </div>
-  </section>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <WeatherWidget client:load />
+            <SpotifyWidget discordId="1287023567019704394" client:load />
+        </div>
+    </section>
 
-  <hr class="border-border" />
+    <hr class="border-border" />
 
-  <section class="py-10">
-    <h2 class="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-5">about</h2>
-    <div class="space-y-4 text-sm text-muted-foreground leading-relaxed max-w-lg">
-      <p>
-        Hi!, I'm <strong class="text-foreground">Mihran</strong> an 18-year-old custom ROM tinkerer, privacy advocate, and hardware/software builder who gets a little too excited about bleeding edge tech.
-      </p>
-      <p>
-        I started my tech journey in 2021 flashing custom ROMs, and somewhere along the way I realized how few people actually knew they had control over their own devices and data. That gap kind of became my thing. I believe privacy shouldn't require a computer science degree to care about.
-      </p>
-      <p>
-        These days I'm building hardware projects, going down rabbit holes in AI and low-level systems, and writing about whatever's currently breaking my brain in the best way possible.
-      </p>
-    </div>
-  </section>
+    <section class="py-10">
+        <h2
+            class="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-5"
+        >
+            about
+        </h2>
+        <div
+            class="space-y-4 text-sm text-muted-foreground leading-relaxed max-w-lg"
+        >
+            <p>
+                Hi!, I'm <strong class="text-foreground">Mihran</strong> an 18-year-old
+                custom ROM tinkerer, privacy advocate, and hardware/software builder
+                who gets a little too excited about bleeding edge tech.
+            </p>
+            <p>
+                I started my tech journey in 2021 flashing custom ROMs, and
+                somewhere along the way I realized how few people actually knew
+                they had control over their own devices and data. That gap kind
+                of became my thing. I believe privacy shouldn't require a
+                computer science degree to care about.
+            </p>
+            <p>
+                These days I'm building hardware projects, going down rabbit
+                holes in AI and low-level systems, and writing about whatever's
+                currently breaking my brain in the best way possible.
+            </p>
+        </div>
+    </section>
 
-  <hr class="border-border" />
+    <hr class="border-border" />
 
-  <section class="py-10">
-    <h2 class="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-5">stack</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div>
-        <p class="text-xs text-muted-foreground mb-2">languages & frameworks</p>
-        <p class="text-sm text-foreground">Python, JavaScript, ArduinoCpp, React, Astro</p>
-      </div>
-      <div>
-        <p class="text-xs text-muted-foreground mb-2">tools & platforms</p>
-        <p class="text-sm text-foreground">Git/GitHub, Linux, Docker, Cloudflare, KiCad, Onshape</p>
-      </div>
-    </div>
-  </section>
+    <section class="py-10">
+        <h2
+            class="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-5"
+        >
+            stack
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+                <p class="text-xs text-muted-foreground mb-2">
+                    languages & frameworks
+                </p>
+                <p class="text-sm text-foreground">
+                    Python, JavaScript, ArduinoCpp, React, Astro
+                </p>
+            </div>
+            <div>
+                <p class="text-xs text-muted-foreground mb-2">
+                    tools & platforms
+                </p>
+                <p class="text-sm text-foreground">
+                    Git/GitHub, Linux, Docker, Cloudflare, KiCad, Onshape
+                </p>
+            </div>
+        </div>
+    </section>
 
-  <hr class="border-border" />
+    <hr class="border-border" />
 
-  <section class="py-10">
-    <h2 class="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-5">hobbies & favourites</h2>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div>
-        <p class="text-xs text-muted-foreground mb-2">music</p>
-        <p class="text-sm text-foreground">Seedhe Maut, Fleetwood Mac, Queen</p>
-      </div>
-      <div>
-        <p class="text-xs text-muted-foreground mb-2">anime</p>
-        <p class="text-sm text-foreground">Fullmetal Alchemist:Brotherhood, Attack on Titan, One Piece</p>
-      </div>
-      <div>
-        <p class="text-xs text-muted-foreground mb-2">games</p>
-        <p class="text-sm text-foreground">Ghost of Tsushima, Minecraft, Red Dead Redemption 2</p>
-      </div>
-      <div>
-        <p class="text-xs text-muted-foreground mb-2">interests</p>
-        <p class="text-sm text-foreground">Custom ROMs, Privacy, Hardware tinkering, AI</p>
-      </div>
-    </div>
-  </section>
+    <section class="py-10">
+        <h2
+            class="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-5"
+        >
+            hobbies & favourites
+        </h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+                <p class="text-xs text-muted-foreground mb-2">music</p>
+                <p class="text-sm text-foreground">
+                    Seedhe Maut, Fleetwood Mac, Queen
+                </p>
+            </div>
+            <div>
+                <p class="text-xs text-muted-foreground mb-2">anime</p>
+                <p class="text-sm text-foreground">
+                    Fullmetal Alchemist:Brotherhood, Attack on Titan, One Piece
+                </p>
+            </div>
+            <div>
+                <p class="text-xs text-muted-foreground mb-2">games</p>
+                <p class="text-sm text-foreground">
+                    Ghost of Tsushima, Minecraft, Red Dead Redemption 2
+                </p>
+            </div>
+            <div>
+                <p class="text-xs text-muted-foreground mb-2">interests</p>
+                <p class="text-sm text-foreground">
+                    Custom ROMs, Privacy, Hardware tinkering, AI
+                </p>
+            </div>
+        </div>
+    </section>
 
-  <hr class="border-border" />
+    <hr class="border-border" />
 
-  <section class="py-10">
-    <h2 class="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-5">connect</h2>
-    <div class="space-y-2 text-sm">
-      <a href="mailto:mihranrazaa@gmail.com" class="block text-foreground hover:text-accent transition-colors">
-        mihranrazaa@gmail.com
-      </a>
-      <a href="https://github.com/mihranrazaa" target="_blank" rel="noopener noreferrer" class="block text-foreground hover:text-accent transition-colors">
-        github.com/mihranrazaa
-      </a>
-      <a href="https://linkedin.com/in/mihranrazaa" target="_blank" rel="noopener noreferrer" class="block text-foreground hover:text-accent transition-colors">
-        linkedin.com/in/mihranrazaa
-      </a>
-      <a href="https://x.com/mihranrazaa" target="_blank" rel="noopener noreferrer" class="block text-foreground hover:text-accent transition-colors">
-        x.com/mihranrazaa
-      </a>
-    </div>
-  </section>
+    <section class="py-10">
+        <h2
+            class="text-xs font-medium text-muted-foreground uppercase tracking-wider mb-5"
+        >
+            connect
+        </h2>
+        <div class="space-y-2 text-sm">
+            <a
+                href="mailto:mihranrazaa@gmail.com"
+                class="block text-foreground hover:text-accent transition-colors"
+            >
+                mihranrazaa@gmail.com
+            </a>
+            <a
+                href="https://github.com/mihranrazaa"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="block text-foreground hover:text-accent transition-colors"
+            >
+                github.com/mihranrazaa
+            </a>
+            <a
+                href="https://linkedin.com/in/mihranrazaa"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="block text-foreground hover:text-accent transition-colors"
+            >
+                linkedin.com/in/mihranrazaa
+            </a>
+            <a
+                href="https://x.com/mihranrazaa"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="block text-foreground hover:text-accent transition-colors"
+            >
+                x.com/mihranrazaa
+            </a>
+        </div>
+    </section>
 </BaseLayout>
