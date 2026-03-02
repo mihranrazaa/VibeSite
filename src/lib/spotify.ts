@@ -1,16 +1,12 @@
-const client_id = import.meta.env.SPOTIFY_CLIENT_ID;
-const client_secret = import.meta.env.SPOTIFY_CLIENT_SECRET;
-const refresh_token = import.meta.env.SPOTIFY_REFRESH_TOKEN;
-
-const basic = btoa(`${client_id}:${client_secret}`);
 const TOKEN_ENDPOINT = "https://accounts.spotify.com/api/token";
 const NOW_PLAYING_ENDPOINT = "https://api.spotify.com/v1/me/player/currently-playing";
 
-const getAccessToken = async () => {
+const getAccessToken = async (client_id: string, client_secret: string, refresh_token: string) => {
     if (!client_id || !client_secret || !refresh_token) {
         throw new Error("Missing Spotify env vars (SPOTIFY_CLIENT_ID/SECRET/REFRESH_TOKEN)");
     }
 
+    const basic = btoa(`${client_id}:${client_secret}`);
     const response = await fetch(TOKEN_ENDPOINT, {
         method: "POST",
         headers: {
@@ -26,9 +22,10 @@ const getAccessToken = async () => {
     return response.json();
 };
 
-export const getNowPlaying = async () => {
+export const getNowPlaying = async ({ client_id, client_secret, refresh_token }: { client_id?: string, client_secret?: string, refresh_token?: string }) => {
     try {
-        const { access_token } = await getAccessToken();
+        if (!client_id || !client_secret || !refresh_token) return { isPlaying: false };
+        const { access_token } = await getAccessToken(client_id, client_secret, refresh_token);
 
         const response = await fetch(NOW_PLAYING_ENDPOINT, {
             headers: {
