@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
+import TableOfContents from "../../components/TableOfContents.astro";
 import { getCollection, render } from "astro:content";
 
 export const prerender = true;
@@ -13,7 +14,7 @@ export async function getStaticPaths() {
 }
 
 const { post } = Astro.props;
-const { Content } = await render(post);
+const { Content, headings } = await render(post);
 
 const wordCount = post.body ? post.body.split(/\s+/).length : 0;
 const readingTime = Math.max(1, Math.ceil(wordCount / 200));
@@ -40,6 +41,8 @@ const readingTime = Math.max(1, Math.ceil(wordCount / 200));
         )}
       </div>
     </header>
+
+    {post.data.toc && <TableOfContents headings={headings} />}
 
     <div class="prose max-w-none dark:prose-invert prose-headings:font-semibold prose-headings:tracking-tight prose-headings:text-foreground prose-a:text-accent prose-a:no-underline hover:prose-a:underline prose-code:before:content-none prose-code:after:content-none prose-code:text-sm prose-pre:border prose-pre:border-border prose-strong:text-foreground prose-p:text-foreground prose-p:leading-relaxed prose-li:text-foreground prose-hr:border-border prose-blockquote:text-muted-foreground">
       <Content />

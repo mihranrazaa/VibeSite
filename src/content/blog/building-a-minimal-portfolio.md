@@ -4,6 +4,7 @@ description: "How I built this very portfolio/blog site using Astro, shadcn/ui, 
 date: 2026-02-25
 tags: ["web-dev", "portfolio", "astro"]
 draft: true
+toc: true
 ---
 
 ## The Stack
