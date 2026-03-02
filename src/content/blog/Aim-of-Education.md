@@ -5,6 +5,7 @@ date: 2025-10-25
 tags:
   - Opinion
 draft: false
+toc: true
 ---
 
 ## Table of contents

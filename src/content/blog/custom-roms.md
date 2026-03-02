@@ -5,6 +5,7 @@ date: 2025-07-26
 tags:
   - Android
 draft: false
+toc: true
 ---
 
 #### Hello People!

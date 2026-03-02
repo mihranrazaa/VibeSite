@@ -4,6 +4,7 @@ description: "A quick guide on why Astro is a great choice for building content-
 date: 2026-02-28
 tags: ["astro", "web-dev", "tutorial"]
 draft: true
+toc: true
 ---
 
 ## Why Astro?

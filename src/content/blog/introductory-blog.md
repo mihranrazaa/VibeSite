@@ -5,6 +5,7 @@ date: 2025-06-06
 tags:
   - blog
 draft: false
+toc: true
 ---
 
 ## Table of contents

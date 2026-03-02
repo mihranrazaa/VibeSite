@@ -4,6 +4,7 @@ description: "My first blog post. This is a place where I share my thoughts on t
 date: 2026-03-01
 tags: ["intro", "personal"]
 draft: false
+toc: true
 ---
 
 ## Welcome!
