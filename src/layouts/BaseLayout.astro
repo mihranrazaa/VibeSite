@@ -278,7 +278,7 @@ const {
                 rotSpeed: (Math.random() - 0.5) * 0.03,
                 imgIdx: Math.floor(Math.random() * loadedImages.length),
                 opacity: isMobile
-                  ? Math.random() * 0.12 + 0.06  // 6%–18% on mobile (much subtler)
+                  ? Math.random() * 0.08 + 0.03  // 3%–11% on mobile (very subtle)
                   : Math.random() * 0.25 + 0.15, // 15%–40% on desktop
               });
             }
@@ -294,14 +294,16 @@ const {
               item.y += item.vy;
               item.rotation += item.rotSpeed;
 
-              // Mouse repulsion
-              const dx = item.x - mouseX;
-              const dy = item.y - mouseY;
-              const dist = Math.sqrt(dx * dx + dy * dy);
-              if (dist < REPEL_RADIUS && dist > 0) {
-                const force = ((REPEL_RADIUS - dist) / REPEL_RADIUS) * REPEL_FORCE;
-                item.vx += (dx / dist) * force * 0.08;
-                item.vy += (dy / dist) * force * 0.08;
+              // Mouse repulsion (desktop only)
+              if (!isMobile) {
+                const dx = item.x - mouseX;
+                const dy = item.y - mouseY;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < REPEL_RADIUS && dist > 0) {
+                  const force = ((REPEL_RADIUS - dist) / REPEL_RADIUS) * REPEL_FORCE;
+                  item.vx += (dx / dist) * force * 0.08;
+                  item.vy += (dy / dist) * force * 0.08;
+                }
               }
 
               // Content zone repulsion — push out from text column 

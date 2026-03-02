@@ -15,7 +15,7 @@ const allTags = [...new Set(sortedPosts.flatMap((post) => post.data.tags))].sort
     <!-- Tag filters as simple text links -->
     {allTags.length > 0 && (
       <div class="flex flex-wrap gap-x-3 gap-y-1.5 mb-10 text-xs text-muted-foreground">
-        <a href="/blog" class="text-foreground font-medium">all</a>
+        <a href="/blog" class="text-foreground font-medium">all tags</a>
         {allTags.map((tag) => (
           <a href={`/tags/${tag}`} class="hover:text-foreground transition-colors">#{tag}</a>
         ))}

@@ -10,19 +10,46 @@ import SpotifyWidget from "../components/SpotifyWidget";
       <h1 class="text-2xl font-semibold tracking-tight">
         mihranrazaa
       </h1>
-      <div class="relative w-16 h-16 rounded-[1.25rem] overflow-hidden group border border-border/50">
+      <div id="profile-pic" class="relative w-16 h-16 rounded-[1.25rem] overflow-hidden group border border-border/50 cursor-pointer">
         <img 
           src="/me.jpeg" 
           alt="mihranrazaa" 
+          id="profile-default"
           class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 group-hover:opacity-0"
         />
         <img 
           src="/me-hover.jpeg" 
           alt="mihranrazaa" 
+          id="profile-hover"
           class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
         />
       </div>
     </div>
+
+    <script>
+      // Mobile touch swap for profile image
+      const profilePic = document.getElementById("profile-pic");
+      const defaultImg = document.getElementById("profile-default") as HTMLImageElement;
+      const hoverImg = document.getElementById("profile-hover") as HTMLImageElement;
+      let isSwapped = false;
+
+      profilePic?.addEventListener("click", (e) => {
+        e.stopPropagation();
+        isSwapped = !isSwapped;
+        if (defaultImg && hoverImg) {
+          defaultImg.style.opacity = isSwapped ? "0" : "1";
+          hoverImg.style.opacity = isSwapped ? "1" : "0";
+        }
+      });
+
+      document.addEventListener("click", () => {
+        if (isSwapped && defaultImg && hoverImg) {
+          isSwapped = false;
+          defaultImg.style.opacity = "1";
+          hoverImg.style.opacity = "0";
+        }
+      });
+    </script>
     <p class="text-sm text-muted-foreground leading-relaxed max-w-lg">
       i build things on the internet and write about it.
     </p>
