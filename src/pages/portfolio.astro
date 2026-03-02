@@ -2,71 +2,114 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 
 const projects = [
-  {
-    title: "Personal Site",
-    description: "You are currently exploring it :)",
-    tech: "Astro · React · Tailwind",
-    link: "/",
-    github: "https://github.com/mihranrazaa/vibesite",
-  },
     {
-    title: "Asteroid Destroyer",
-    description: " A mindless shooting game where you have to destroy asteroids(who thought?)....",
-    tech: "Python",
-    link: "https://github.com/mihranrazaa/Asteroid_Destroyer/releases/tag/v1.6",
-    github: "https://github.com/mihranrazaa/Asteroid_Destroyer",
-  },
-  {
-    title: "Knobble",
-    description: "A radio reciever which can be used to listen to Space stations and other radio stations.",
-    tech: "Python · Kicad · Onshape",
-    link: "https://github.com/mihranrazaa/Knobble",
-    github: "https://github.com/mihranrazaa/Knobble",
-  },
-  {
-    title: "More to add",
-    description: "another placeholder — swap this out.",
-    tech: "Python · FastAPI · Docker",
-    link: "#",
-    github: "#",
-  },
+        title: "Personal Site",
+        description: "You are currently exploring it :)",
+        tech: "Astro · React · Tailwind",
+        link: "/",
+        github: "https://github.com/mihranrazaa/vibesite",
+    },
+    {
+        title: "Asteroid Destroyer",
+        description:
+            " A mindless shooting game where you have to destroy asteroids(who thought?)....",
+        tech: "Python",
+        link: "#",
+        github: "https://github.com/mihranrazaa/Asteroid_Destroyer",
+    },
+    {
+        title: "Knobble",
+        description:
+            "A radio reciever which can be used to listen to Space stations and other radio stations.",
+        tech: "Python · Kicad · Onshape",
+        link: "#",
+        github: "https://github.com/mihranrazaa/Knobble",
+    },
+    {
+        title: "MacroMedia",
+        description:
+            "A Macropad built for media controls, with an oled and a knob.",
+        tech: "Python · Kicad · Onshape",
+        link: "#",
+        github: "https://github.com/mihranrazaa/MacroMedia",
+    },
 ];
 ---
 
 <BaseLayout title="work — mihranrazaa">
-  <section class="py-10">
-    <div class="flex items-center justify-between mb-6">
-      <h1 class="text-lg font-semibold tracking-tight">work/projects</h1>
-      <a 
-        href="https://drive.google.com/file/d/1yBAk2MOQfYwEk6CBbsmowUsZeu-zZRu3/view?usp=sharing" 
-        target="_blank" 
-        rel="noopener noreferrer" 
-        class="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground border border-border px-3 py-1.5 rounded-md hover:bg-accent/5 transition-colors"
-        aria-label="Download CV"
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-        cv/resume
-      </a>
-    </div>
-    <div class="space-y-8">
-      {projects.map((project, i) => (
-        <>
-          <div>
-            <h3 class="text-sm font-medium text-foreground mb-1">{project.title}</h3>
-            <p class="text-sm text-muted-foreground mb-2">{project.description}</p>
-            <p class="text-xs text-muted-foreground">{project.tech}</p>
-            <div class="flex gap-3 mt-2 text-xs">
-              {project.link && project.link !== "#" && (
-                <a href={project.link} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline underline-offset-4">live →</a>
-              )}
-              {project.github && project.github !== "#" && (
-                <a href={project.github} target="_blank" rel="noopener noreferrer" class="text-accent hover:underline underline-offset-4">code →</a>
-              )}
-            </div>
-          </div>
-          {i < projects.length - 1 && <hr class="border-border" />}
-        </>
-      ))}
-    </div>
-  </section>
+    <section class="py-10">
+        <div class="flex items-center justify-between mb-6">
+            <h1 class="text-lg font-semibold tracking-tight">work/projects</h1>
+            <a
+                href="https://drive.google.com/file/d/1yBAk2MOQfYwEk6CBbsmowUsZeu-zZRu3/view?usp=sharing"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground border border-border px-3 py-1.5 rounded-md hover:bg-accent/5 transition-colors"
+                aria-label="Download CV"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    ><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"
+                    ></path><polyline points="7 10 12 15 17 10"></polyline><line
+                        x1="12"
+                        y1="15"
+                        x2="12"
+                        y2="3"></line></svg
+                >
+                cv/resume
+            </a>
+        </div>
+        <div class="space-y-8">
+            {
+                projects.map((project, i) => (
+                    <>
+                        <div>
+                            <h3 class="text-sm font-medium text-foreground mb-1">
+                                {project.title}
+                            </h3>
+                            <p class="text-sm text-muted-foreground mb-2">
+                                {project.description}
+                            </p>
+                            <p class="text-xs text-muted-foreground">
+                                {project.tech}
+                            </p>
+                            <div class="flex gap-3 mt-2 text-xs">
+                                {project.link && project.link !== "#" && (
+                                    <a
+                                        href={project.link}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="text-accent hover:underline underline-offset-4"
+                                    >
+                                        live →
+                                    </a>
+                                )}
+                                {project.github && project.github !== "#" && (
+                                    <a
+                                        href={project.github}
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="text-accent hover:underline underline-offset-4"
+                                    >
+                                        code →
+                                    </a>
+                                )}
+                            </div>
+                        </div>
+                        {i < projects.length - 1 && (
+                            <hr class="border-border" />
+                        )}
+                    </>
+                ))
+            }
+        </div>
+    </section>
 </BaseLayout>
