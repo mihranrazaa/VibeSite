@@ -3,7 +3,8 @@
 const hash = typeof __COMMIT_HASH__ !== "undefined" ? __COMMIT_HASH__ : "unknown";
 const rawDate = typeof __COMMIT_DATE__ !== "undefined" ? __COMMIT_DATE__ : new Date().toISOString();
 
-const formattedDate = new Date(rawDate).toLocaleDateString("en-US", {
+const formattedDate = new Date(rawDate).toLocaleDateString("en-IN", {
+    timeZone: "Asia/Kolkata",
     year: "numeric",
     month: "long",
     day: "numeric",
@@ -26,5 +27,5 @@ const REPO_URL = "https://github.com/mihranrazaa/vibesite";
         {hash}
     </a>
     <span class="text-cyan-400 font-bold">!</span>
-    <span>last updated: {formattedDate} UTC</span>
+    <span>last updated: {formattedDate} IST</span>
 </div>

@@ -215,6 +215,7 @@ const {
         
         function initCanvas() {
           if (loadedImages.length === 0) return; // No valid images found
+          if (window.innerWidth < 768 && window.location.pathname !== "/") return;
 
           let W = window.innerWidth;
           let H = window.innerHeight;
